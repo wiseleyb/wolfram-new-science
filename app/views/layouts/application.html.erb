@@ -32,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Wolfram</a>
+          <a class="brand" href="/">Wolfram - A New Kind of Science</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
                 <!--
@@ -67,9 +67,9 @@
               %>
               <%=hidden_field_tag "rectOn", rect_on %>
               <%=hidden_field_tag "rectOff", rect_off %>
-              <p><small>click the bottom boxes to change the pattern</small></p>
+              <p><small>click the bottom boxes in sets to change the pattern</small></p>
               <ul class="nav nav-list">
-                <li class="nav-header">Pattern</li>
+                <li class="nav-header">Cellular Automata Patterns</li>
                 <% rules.each_with_index do |rule, idx| %>
                   <li>
                     <canvas id="canvasRule<%=idx%>" width="<%=rect*4%>" height="<%=rect*3%>"></canvas>
@@ -92,9 +92,9 @@
                       context.rect(<%= rect%>,<%= rect%>,<%= rect - 3%>,<%=rect -3%>);
                       context.fillStyle = '<%=clr%>';
                       context.fill();
-                      // context.lineWidth = 1.5;
-                      // context.strokeStyle = '#95D3F5';
-                      // context.stroke();                      
+                      context.lineWidth = 1.5;
+                      context.strokeStyle = '#56BAEC';
+                      context.stroke();                      
                       context.closePath();
                       c.addEventListener('click', function(e) {
                           console.log('click: ' + e.offsetX + '/' + e.offsetY);
@@ -133,7 +133,10 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2012</p>
+        <p>&copy; Rain48 2012 | * if this doesn't work in IE I don't give a single fuck :) | ** playing around with Ruby, HTML5, Processing.js and ideas from 
+          <a href="http://www.amazon.com/gp/product/1579550088/ref=as_li_ss_tl?ie=UTF8&tag=commonsci-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1579550088">Wolfram - A New Kind of Science</a><img src="http://www.assoc-amazon.com/e/ir?t=commonsci-20&l=as2&o=1&a=1579550088" 
+          width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></p>
+        
       </footer>
 
     </div> <!-- /container -->
