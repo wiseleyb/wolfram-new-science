@@ -1,0 +1,4 @@
+// $('#update-container').html('<%= escape_javascript render :partial => "automata", :locals => {:data => @data} %>');
+js = '<%= escape_javascript render :partial => "auto", :locals => {:data => @data} %>';
+new Processing('processing-canvas', js);
+// $('#update-container').html('<%= escape_javascript render :partial => "automata", :locals => {:data => @data} %>');

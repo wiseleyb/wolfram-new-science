@@ -1,7 +1,7 @@
 Wolfram::Application.routes.draw do
   
   resources :home
-  root :to => 'home#index'
+  root :to => 'home#show'
   match ':controller(/:action(/:id))(.:format)'
 
 
