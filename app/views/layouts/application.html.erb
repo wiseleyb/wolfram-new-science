@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>Wolfram</title>
-    <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "processing-1.3.6.js" %>
     <%= csrf_meta_tags %>
 
@@ -51,76 +50,14 @@
         <div class="span3">
           <div class="well sidebar-nav">
             <%=form_tag "/home/show/1", :remote => true, :id => "patternForm" do |f| %>
-              <%
-              rect = 30
-              rect_off = "#D6D4D5"
-              rect_on  = "#121212"
-              rules = []
-              rules << [1,1,1, 0]
-              rules << [1,1,0, 0]
-              rules << [1,0,1, 0]
-              rules << [1,0,0, 1]
-              rules << [0,1,1, 1]
-              rules << [0,1,0, 1]
-              rules << [0,0,1, 1]
-              rules << [0,0,0, 0]
-              %>
-              <%=hidden_field_tag "rectOn", rect_on %>
-              <%=hidden_field_tag "rectOff", rect_off %>
               <p><small>click the bottom boxes in sets to change the pattern</small></p>
               <ul class="nav nav-list">
                 <li class="nav-header">Cellular Automata Patterns</li>
-                <% rules.each_with_index do |rule, idx| %>
+                <% # all of the canvas stuff is wired up and drawn in pattern.js.coffee %>
+                <% 8.times do |idx| %>
                   <li>
-                    <canvas id="canvasRule<%=idx%>" width="<%=rect*4%>" height="<%=rect*3%>"></canvas>
-                    <script>
-                      var c=document.getElementById("canvasRule<%=idx%>");
-                      var context=c.getContext("2d");
-                      <% 3.times do |i| %>
-                        <% clr = rule[i] == 1 ? rect_on : rect_off %>
-                        context.beginPath();
-                        context.rect(<%= i * rect%>,0,<%= rect - 3%>,<%=rect -3%>);
-                        context.fillStyle = '<%=clr%>';
-                        context.fill();
-                        context.closePath();
-                        // context.lineWidth = 1;
-                        // context.strokeStyle = 'black';
-                        // context.stroke();
-                      <% end %>
-                      <% clr = rule.last == 1 ? rect_on : rect_off %>
-                      context.beginPath();
-                      context.rect(<%= rect%>,<%= rect%>,<%= rect - 3%>,<%=rect -3%>);
-                      context.fillStyle = '<%=clr%>';
-                      context.fill();
-                      context.lineWidth = 1.5;
-                      context.strokeStyle = '#56BAEC';
-                      context.stroke();                      
-                      context.closePath();
-                      c.addEventListener('click', function(e) {
-                          console.log('click: ' + e.offsetX + '/' + e.offsetY);
-                          if (e.offsetX > <%=rect%> && e.offsetX < <%=rect * 2%> && e.offsetY > <%=rect%> && e.offsetY < <%=rect * 2%>) {
-                            var c=document.getElementById("canvasRule<%=idx%>");
-                            var context=c.getContext("2d");
-                            console.log($('#rule<%=idx%>').val());
-                            context.beginPath();
-                            context.rect(<%= rect%>,<%= rect%>,<%= rect - 3%>,<%=rect -3%>);
-                            if ($('#rule<%=idx%>').val() == 1) {
-                              $('#rule<%=idx%>').val(0)
-                              context.fillStyle = $('#rectOff').val();
-                            } else {
-                              $('#rule<%=idx%>').val(1)
-                              context.fillStyle = $('#rectOn').val();
-                            }
-                            context.fill();
-                            // context.lineWidth = 1.5;
-                            // context.strokeStyle = '#95D3F5';
-                            // context.stroke();                      
-                            context.closePath();
-                            $('#patternForm').submit();
-                          }
-                      }, false);
-                    </script>
-                    <%=hidden_field_tag "rule#{idx}", rule[3] %>
+                    <canvas id="canvasRule<%=idx%>"></canvas>
+                    <%=hidden_field_tag "rule#{idx}" %>
                   </li>
                 <% end %>
               </ul>
